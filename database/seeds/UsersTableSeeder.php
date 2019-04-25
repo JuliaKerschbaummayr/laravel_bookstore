@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
         //backend user
         $user = new \App\User;
         $user->name = 'testuser';
+        $user->isadmin = true;
         $user->email = 'test@gmail.com';
         $user->password = bcrypt('secret');
         $user->save();
@@ -21,6 +22,7 @@ class UsersTableSeeder extends Seeder
         //frontend user
         $user2 = new \App\User;
         $user2->name = 'customer';
+        $user2->isadmin = false;
         $user2->email = 'customer@gmail.com';
         $user2->password = bcrypt('customersecret');
         $user2->save();
