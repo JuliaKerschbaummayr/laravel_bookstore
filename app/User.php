@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'isadmin', 'email', 'password'
     ];
 
     /**
@@ -41,6 +41,6 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         //Token ändern, ist User admin isAdmin aus create_users_table
-        return ['user' => ['id'=>$this->id/*, 'isAdmin'=>$this.isAdmin*/]];
+        return ['user' => ['id'=>$this->id, 'isadmin'=>$this->isadmin]];
     }
 }
