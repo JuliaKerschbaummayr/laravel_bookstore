@@ -20,6 +20,13 @@ class CreateUsersTable extends Migration
             $table->boolean('isadmin');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('street')->nullable();
+            $table->integer('street_number')->nullable();
+            $table->integer('zip')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
