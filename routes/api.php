@@ -22,12 +22,16 @@ Route::get('book/{isbn}', 'BookController@findByISBN');
 Route::get('book/checkisbn/{isbn}', 'BookController@checkISBN');
 Route::get('book/search/{searchTerm}', 'BookController@findBySearchTerm');
 
+//only if logged in
 
 Route::group(['middleware' => ['api', 'cors', 'jwt.auth']], function () {
     Route::post('book', 'BookController@save');
     Route::put('book/{isbn}', 'BookController@update');
     Route::delete('book/{isbn}', 'BookController@delete');
     Route::post('auth/logout', 'Auth\ApiAuthController@logout');
+    Route::get('orders/{userId}', 'OrderController@index');
+    Route::get('order/{id}', 'OrderController@orderById');
+    Route::get('manageorders', 'OrderController@getAllOrders');
 });
 
 Route::group(['middleware' => ['api', 'cors']], function () {

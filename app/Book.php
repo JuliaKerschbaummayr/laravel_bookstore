@@ -38,6 +38,6 @@ class Book extends Model
 
     //many orders for book
     public function orders() : BelongsToMany {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class)->withPivot('amount');
     }
 }

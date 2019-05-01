@@ -12,18 +12,18 @@ class AuthorsTableSeeder extends Seeder
     public function run()
     {
         $author1 = new \App\Author;
-        $author1->firstName = 'Max';
-        $author1->lastName = 'Maier';
+        $author1->firstName = 'Ines';
+        $author1->lastName = 'Scheuer';
         $author1->save();
 
         $author2 = new \App\Author;
-        $author2->firstName = 'Susi';
-        $author2->lastName = 'Musterfrau';
+        $author2->firstName = 'Elli';
+        $author2->lastName = 'Radinger';
         $author2->save();
 
         $author3 = new \App\Author;
-        $author3->firstName = 'Karl';
-        $author3->lastName = 'Huber';
+        $author3->firstName = 'Christina';
+        $author3->lastName = 'Sondermann';
         $author3->save();
     }
 }

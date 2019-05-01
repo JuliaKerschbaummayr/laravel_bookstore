@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('isbn')->unique();
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->integer('price');
+            $table->double('price');
             $table->date('published')->nullable();
             $table->integer('rating')->default(1);
             $table->string('description')->nullable();

@@ -20,7 +20,7 @@ class CreateBookOrderTable extends Migration
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')
                 ->on('orders')->onDelete('cascade');
-            $table->integer('amount');
+            $table->integer('amount')->default(1);
             $table->primary(['book_id', 'order_id']);
             $table->timestamps();
         });

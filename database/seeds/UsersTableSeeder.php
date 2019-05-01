@@ -33,5 +33,19 @@ class UsersTableSeeder extends Seeder
         $user2->city = 'Rainbach';
         $user2->country = 'Austria';
         $user2->save();
+
+        $user3 = new \App\User;
+        $user3->name = 'customer';
+        $user3->isadmin = false;
+        $user3->email = 'mustermann@gmail.com';
+        $user3->password = bcrypt('mustermann');
+        $user3->firstname = 'Max';
+        $user3->lastname = 'Mustermann';
+        $user3->street = 'Musterstrasse';
+        $user3->street_number = 2;
+        $user3->zip = 4040;
+        $user3->city = 'Linz';
+        $user3->country = 'Austria';
+        $user3->save();
     }
 }
