@@ -14,7 +14,7 @@ class OrderController extends Controller
 
     public function orderById(string $id)
     {
-        $order = Order::where('id', $id)->with(['books.orders', 'books.images', 'books.authors', 'statuses'])->first();
+        $order = Order::where('id', $id)->with(['user', 'books.orders', 'books.images', 'books.authors', 'statuses'])->first();
         return $order;
     }
 

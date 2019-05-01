@@ -62,5 +62,20 @@ class OrdersTableSeeder extends Seeder
         $order3->books()->attach($bookFirst, ['amount' => 2]);
         $order3->books()->attach($bookLast, ['amount' => 3]);
         $order3->save();
+
+
+        //Order 4
+
+        $order4 = new Order();
+        $order4->orderDate = new DateTime('2019-05-01 16:30');
+        $order4->price = 14.50;
+
+//        get the second user - not admin - and add to order
+        $secondUser = \App\User::all()->get('id', 2);
+        $order4->user()->associate($secondUser);
+        $order4->save();
+
+        $order4->books()->attach($bookFirst);
+        $order4->save();
     }
 }
