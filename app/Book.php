@@ -14,7 +14,7 @@ class Book extends Model
     }*/
 
     //welche Felder geändert werden dürfen
-    protected $fillable = ['isbn', 'title', 'subtitle', 'price', 'published', 'rating', 'description', 'user_id'];
+    protected $fillable = ['isbn', 'title', 'subtitle', 'price', 'published', 'rating', 'description', 'user_id', 'author'];
 
     //QueryScopes
     public function scopeFavourite($query) {

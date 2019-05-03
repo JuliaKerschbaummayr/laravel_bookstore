@@ -62,8 +62,19 @@ class StatusesTableSeeder extends Seeder
         $status5->status = 'Offen';
         $status5->changeDate = new DateTime('2019-01-05 10:30');
 
-        $order3 = \App\Order::all()->last();
+        $order3 = \App\Order::all()->get('id', 3);
         $status5->order()->associate($order3);
+        $status5->save();
+
+
+        //Statuses for Order 4
+
+        $status5 = new \App\Status();
+        $status5->status = 'Offen';
+        $status5->changeDate = new DateTime('2019-01-05 10:30');
+
+        $order4 = \App\Order::all()->last();
+        $status5->order()->associate($order4);
         $status5->save();
     }
 }

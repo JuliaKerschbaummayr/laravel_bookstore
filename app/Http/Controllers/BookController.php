@@ -70,7 +70,7 @@ class BookController extends Controller
             // save authors
             if (isset($request['authors']) && is_array($request['authors'])) {
                 foreach ($request['authors'] as $auth) {
-                    $author = Author::firstOrNew(['firstName'=>$auth['firstName'],'lastName'=>$auth['lastName']]);
+                    $author = Author::firstOrNew(['firstName' => $auth['firstName'], 'lastName' => $auth['lastName']]);
                     $book->authors()->save($author);
                 }
             }
@@ -108,28 +108,38 @@ class BookController extends Controller
 
                 //delete all old images
                 $book->images()->delete();
-                // save images
+                // update images
                 if (isset($request['images']) && is_array($request['images'])) {
                     foreach ($request['images'] as $img) {
                         $image = Image::firstOrNew(['url'=>$img['url'],'title'=>$img['title']]);
                         $book->images()->save($image);
                     }
                 }
-                //update authors
 
+                //update authors
                 $ids = [];
                 if (isset($request['authors']) && is_array($request['authors'])) {
                     foreach ($request['authors'] as $auth) {
-                        array_push($ids,$auth['id']);
+                        $authorId = Author::where('firstName', $auth['firstName'])->where('lastName', $auth['lastName'])->first();
+
+                        if (!isset($authorId['id'])) {
+                            $author = Author::firstOrNew(['firstName' => $auth['firstName'], 'lastName' => $auth['lastName']]);
+                            $book->authors()->save($author);
+                            array_push($ids, $author['id']);
+                        }
+                        else {
+                            array_push($ids, $authorId['id']);
+                        }
                     }
+                    $book->authors()->sync($ids);
                 }
-                $book->authors()->sync($ids);
                 $book->save();
 
             }
             DB::commit();
             $book1 = Book::with(['authors', 'images', 'user'])
                 ->where('isbn', $isbn)->first();
+
             // return a vaild http response
             return response()->json($book1, 201);
         }

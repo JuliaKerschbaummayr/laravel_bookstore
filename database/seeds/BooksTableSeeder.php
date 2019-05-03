@@ -97,9 +97,10 @@ class BooksTableSeeder extends Seeder
         $book3->user()->associate($user);
         $book3->save();
 
-//        last author
+//        last and first author
         $lastAuthor = \App\Author::all()->pluck('id')->last();
         $book3->authors()->attach($lastAuthor);
+        $book3->authors()->attach($firstAuthor);
 
 //        add images to book
         $image4 = new \App\Image;
