@@ -51,6 +51,7 @@ class StatusesTableSeeder extends Seeder
         $status5 = new \App\Status();
         $status5->status = 'Storniert';
         $status5->changeDate = new DateTime('2019-04-28 20:10');
+        $status5->comment = 'Irrtümlich bestellt';
 
         $status5->order()->associate($order2);
         $status5->save();
@@ -60,7 +61,7 @@ class StatusesTableSeeder extends Seeder
 
         $status5 = new \App\Status();
         $status5->status = 'Offen';
-        $status5->changeDate = new DateTime('2019-01-05 10:30');
+        $status5->changeDate = new DateTime('2019-05-01 10:30');
 
         $order3 = \App\Order::all()->get('id', 3);
         $status5->order()->associate($order3);
@@ -71,7 +72,7 @@ class StatusesTableSeeder extends Seeder
 
         $status5 = new \App\Status();
         $status5->status = 'Offen';
-        $status5->changeDate = new DateTime('2019-01-05 10:30');
+        $status5->changeDate = new DateTime('2019-05-01 10:30');
 
         $order4 = \App\Order::all()->last();
         $status5->order()->associate($order4);

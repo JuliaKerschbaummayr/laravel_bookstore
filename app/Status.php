@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Status extends Model
 {
     protected $fillable = [
-        'status', 'changeDate'
+        'status', 'comment', 'changeDate', 'order_id'
     ];
 
     //status belongs to order

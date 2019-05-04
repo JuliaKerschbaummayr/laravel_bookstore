@@ -16,7 +16,8 @@ class CreateStatusesTable extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('status');
-            $table->dateTime('changeDate');
+            $table->date('changeDate')->nullable();
+            $table->string('comment')->nullable();
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')
                 ->on('orders')->onDelete('cascade');
