@@ -9,10 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
-    /*public function isFavourite() {
-        return $this->rating >= 8;
-    }*/
-
     //welche Felder geändert werden dürfen
     protected $fillable = ['isbn', 'title', 'subtitle', 'price', 'published', 'rating', 'description', 'user_id', 'author'];
 

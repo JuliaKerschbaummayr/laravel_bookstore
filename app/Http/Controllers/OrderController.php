@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Status;
+use App\Book;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -50,19 +51,26 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $order = Order::create($request->all());
-            if (isset($request['items']) && is_array($request['items'])) {
-                foreach ($request['items'] as $items) {
-                    $amount = $items['amount'];
-                    $book = Book::firstOrNew(['isbn'=>$items['book']['isbn']]);
+            /*if (isset($request['items']) && is_array($request['items'])) {
+                foreach ($request['items'] as $item) {
+                    $amount = $item['amount'];
+                    $book = Book::firstOrNew(['isbn'=>['book'][1]]);
                     $order->books()->attach([$book['id'] => ['amount' => $amount]]);
                 }
+            }*/
+            if (isset($request['items']) && is_array($request['items'])) {
+                foreach ($request['items'] as $item) {
+                    $amount = $item['amount'];
+                    $order->books()->attach([$item['book'][1] => ['amount' => $amount]]);
+                }
             }
+
             DB::commit();
             return response()->json($order, 201);
         }
         catch (\Exception $e) {
             DB::rollBack();
-            return response()->json("order  failed: " . $e->getMessage(), 420);
+            return response()->json("order failed: " . $e->getMessage(), 420);
         }
     }
 
@@ -70,6 +78,8 @@ class OrderController extends Controller
         // get date and convert it - its in ISO 8601, e.g. "2018-01-01T23:00:00.000Z"
         $date = new \DateTime($request->changeDate);
         $request['changeDate'] = $date;
+        $orderDate = new \DateTime($request->orderDate);
+        $request['orderDate'] = $orderDate;
         return $request;
     }
 }
