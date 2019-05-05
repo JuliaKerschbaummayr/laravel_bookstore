@@ -45,6 +45,27 @@ class OrderController extends Controller
         }
     }
 
+    public function addOrder(Request $request) : JsonResponse  {
+        $request = $this->parseRequest($request);
+        DB::beginTransaction();
+        try {
+            $order = Order::create($request->all());
+            if (isset($request['items']) && is_array($request['items'])) {
+                foreach ($request['items'] as $items) {
+                    $amount = $items['amount'];
+                    $book = Book::firstOrNew(['isbn'=>$items['book']['isbn']]);
+                    $order->books()->attach([$book['id'] => ['amount' => $amount]]);
+                }
+            }
+            DB::commit();
+            return response()->json($order, 201);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json("order  failed: " . $e->getMessage(), 420);
+        }
+    }
+
     private function parseRequest(Request $request) : Request {
         // get date and convert it - its in ISO 8601, e.g. "2018-01-01T23:00:00.000Z"
         $date = new \DateTime($request->changeDate);
