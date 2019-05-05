@@ -26,7 +26,7 @@ class OrderController extends Controller
 
     public function getAllOrders()
     {
-        $allOrders = Order::with(['user', 'books'])->orderBy('user_id', 'asc')->latest()->get();
+        $allOrders = Order::with(['user', 'books', 'statuses'])->orderBy('user_id', 'asc')->latest()->get();
         return $allOrders;
     }
 

@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         $user2->name = 'customer';
         $user2->isadmin = false;
         $user2->email = 'customer@gmail.com';
-        $user2->password = bcrypt('customersecret');
+        $user2->password = bcrypt('customer');
         $user2->firstname = 'Julia';
         $user2->lastname = 'Kerschbaummayr';
         $user2->street = 'Musterstrasse';
