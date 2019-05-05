@@ -51,19 +51,15 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $order = Order::create($request->all());
-            /*if (isset($request['items']) && is_array($request['items'])) {
-                foreach ($request['items'] as $item) {
-                    $amount = $item['amount'];
-                    $book = Book::firstOrNew(['isbn'=>['book'][1]]);
-                    $order->books()->attach([$book['id'] => ['amount' => $amount]]);
-                }
-            }*/
             if (isset($request['items']) && is_array($request['items'])) {
                 foreach ($request['items'] as $item) {
                     $amount = $item['amount'];
-                    $order->books()->attach([$item['book'][1] => ['amount' => $amount]]);
+                    $order->books()->attach([$item['book'][6] => ['amount' => $amount]]);
                 }
             }
+
+            $status = Status::firstOrNew(['changeDate' => new \DateTime(), 'status' => 'Offen']);
+            $order->statuses()->save($status);
 
             DB::commit();
             return response()->json($order, 201);
